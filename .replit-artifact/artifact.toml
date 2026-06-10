@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "PS Barato"
+version = "1.0.0"
+id = "artifacts/ps-barato"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20280
+
+[services.development]
+run = "pnpm --filter @workspace/ps-barato run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ps-barato", "run", "build" ]
+publicDir = "artifacts/ps-barato/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20280"
+BASE_PATH = "/"
